@@ -8,6 +8,6 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>21</maven.compiler.release>
-        <exec.mainClass>br.edu.imepac.clinica.medica.ClinicaMedica</exec.mainClass>
+        <exec.mainClass>br.edu.imepac.clinica_medica.view.login.TelaLogin</exec.mainClass>
     </properties>
 </project>

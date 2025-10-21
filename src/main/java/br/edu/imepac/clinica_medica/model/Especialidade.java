@@ -2,20 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package clinica.medica.model;
+package br.edu.imepac.clinica_medica.model;
 
 /**
  *
  * @author Mateus
  */
-public class Medico {
+class Especialidade {
 
     private int id;
     private String nome;
-    private String crm;
-    private Especialidade especialidade; // Objeto para representar a chave estrangeira
+    private String descricao;
 
-    // Getters e Setters
     public int getId() {
         return id;
     }
@@ -32,19 +30,11 @@ public class Medico {
         this.nome = nome;
     }
 
-    public String getCrm() {
-        return crm;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setCrm(String crm) {
-        this.crm = crm;
-    }
-
-    public Especialidade getEspecialidade() {
-        return especialidade;
-    }
-
-    public void setEspecialidade(Especialidade especialidade) {
-        this.especialidade = especialidade;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 }

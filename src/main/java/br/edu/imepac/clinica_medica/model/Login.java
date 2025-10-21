@@ -2,17 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package clinica.medica.model;
+package br.edu.imepac.clinica_medica.model;
 
 /**
  *
  * @author Mateus
  */
-class Especialidade {
+public class Login {
 
     private int id;
-    private String nome;
-    private String descricao;
+    private String usuario;
+    private String senha;
 
     public int getId() {
         return id;
@@ -22,19 +22,19 @@ class Especialidade {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getUsuario() {
+        return usuario;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getSenha() {
+        return senha;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 }

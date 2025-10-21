@@ -1,1 +1,11 @@
-br\edu\imepac\clinica\medica\ClinicaMedica.class
+br\edu\imepac\clinica_medica\model\Medico.class
+br\edu\imepac\clinica_medica\view\login\TelaLogin$1.class
+br\edu\imepac\clinica_medica\view\login\TelaLogin.class
+br\edu\imepac\clinica_medica\model\Paciente.class
+br\edu\imepac\clinica_medica\model\Prontuario.class
+br\edu\imepac\clinica_medica\model\Usuario.class
+br\edu\imepac\clinica_medica\model\Convenio.class
+br\edu\imepac\clinica_medica\model\Especialidade.class
+br\edu\imepac\clinica_medica\model\Login.class
+br\edu\imepac\clinica_medica\model\Funcionario.class
+br\edu\imepac\clinica_medica\model\AgendaConsulta.class
