@@ -11,53 +11,33 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Mateus
  */
 
-public class LoginDao {
+public class LoginDao { 
     
-    public Usuario autenticar (Login login){
-        try {
-            Connection connection = ConexaoUtil.obterConexao();
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        String query = "SELECT * FROM usuarios WHERE id = ?";
-        PreparedStatement stmt = connection.prepareStatement (sql)){
-      
-            stmt.setInt(1, id);
-         }
-        
-        
-        
-    
-        
-    }
-     public Usuario buscarPorId(int id) {
-        String sql = "SELECT * FROM usuarios WHERE id = ?";
-        try (Connection conn = ConexaoUtil.obterConexao();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+    public Usuario autenticar(Login login) {
+        String sql = "SELECT * FROM usuarios WHERE usuario = ? and password = ? ";
+        try (Connection conn = ConexaoUtil.obterConexao(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, id);
+            stmt.setString(1, login.getUsuario());
+            stmt.setString(2, login.getSenha());
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
                 Usuario usuario = new Usuario();
                 usuario.setId(rs.getInt("id"));
-                usuario.setFuncionarioId(rs.getInt("id_funcionario"));
                 usuario.setLogin(rs.getString("usuario"));
                 usuario.setSenha(rs.getString("senha"));
-                usuario.setPerfil(rs.getString("permissao"));
+                /**CRIAR FIELD PERFIL USUARIO***/
                 return usuario;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Não é possivel autenticar no momento, tente mais tarde!", "Conexão", JOptionPane.ERROR_MESSAGE);
         }
         return null;
     }

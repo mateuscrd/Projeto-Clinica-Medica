@@ -5,6 +5,7 @@
 package br.edu.imepac.clinica_medica.view.login;
 
 import br.edu.imepac.clinica_medica.model.Login;
+import br.edu.imepac.clinica_medica.model.Usuario;
 import br.edu.imepac.clinica_medica.service.login.LoginService;
 
 /**
@@ -121,9 +122,14 @@ public class TelaLogin extends javax.swing.JFrame {
        login.setSenha(senha);
        
        LoginService loginService = new LoginService();
+       Usuario userLogado = new Usuario();
+       userLogado = loginService.autenticar(login);
        
-        
-        
+       
+       //criar a logica de direcionamento 
+        //NomeTela tela  = new NomeTela();
+        // tela.setVisible(true);
+        // esqueci o metodo de fechar a telaLogin
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

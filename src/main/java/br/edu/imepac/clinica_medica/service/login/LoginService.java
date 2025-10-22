@@ -16,11 +16,9 @@ import br.edu.imepac.clinica_medica.model.Usuario;
 public class LoginService {
     
     public Usuario autenticar (Login login) {
-    
         LoginDao loginDao = new LoginDao ();
-        
-    
-        
+        Usuario logado = loginDao.autenticar(login);
+        return logado;
     }
             
 }
