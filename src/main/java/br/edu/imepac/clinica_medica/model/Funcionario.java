@@ -4,19 +4,16 @@
  */
 package br.edu.imepac.clinica_medica.model;
 
-import java.util.Date;
-
 /**
  *
  * @author Mateus
  */
-class Funcionario {
-
+public class Funcionario {
     private int id;
-    private String nome;
+    private String nomeCompleto;
     private String rg;
     private String cpf;
-    private String endereco;
+    private String rua;
     private String numero;
     private String complemento;
     private String bairro;
@@ -24,16 +21,10 @@ class Funcionario {
     private String estado;
     private String cep;
     private String telefoneFixo;
-    private String celular;
-    private String ctps; // Carteira de Trabalho
+    private String telefoneCelular;
+    private String ctps;
     private String pis;
-    private Date dataNascimento;
 
-    // Construtor Padrão
-    public Funcionario() {
-    }
-
-    // Getters e Setters
     public int getId() {
         return id;
     }
@@ -42,12 +33,12 @@ class Funcionario {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getNomeCompleto() {
+        return nomeCompleto;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNomeCompleto(String nomeCompleto) {
+        this.nomeCompleto = nomeCompleto;
     }
 
     public String getRg() {
@@ -66,12 +57,12 @@ class Funcionario {
         this.cpf = cpf;
     }
 
-    public String getEndereco() {
-        return endereco;
+    public String getRua() {
+        return rua;
     }
 
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
+    public void setRua(String rua) {
+        this.rua = rua;
     }
 
     public String getNumero() {
@@ -130,12 +121,12 @@ class Funcionario {
         this.telefoneFixo = telefoneFixo;
     }
 
-    public String getCelular() {
-        return celular;
+    public String getTelefoneCelular() {
+        return telefoneCelular;
     }
 
-    public void setCelular(String celular) {
-        this.celular = celular;
+    public void setTelefoneCelular(String telefoneCelular) {
+        this.telefoneCelular = telefoneCelular;
     }
 
     public String getCtps() {
@@ -152,18 +143,5 @@ class Funcionario {
 
     public void setPis(String pis) {
         this.pis = pis;
-    }
-
-    public Date getDataNascimento() {
-        return dataNascimento;
-    }
-
-    public void setDataNascimento(Date dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
-
-    @Override
-    public String toString() {
-        return getNome(); // Facilita a exibição em JComboBox
     }
 }

@@ -9,11 +9,20 @@ package br.edu.imepac.clinica_medica.model;
  * @author Mateus
  */
 public class Medico {
-
     private int id;
     private String nome;
     private String crm;
-    private Especialidade especialidade; // Objeto para representar a chave estrangeira
+    private Especialidade especialidade; // Associação com a especialidade
+
+    public Medico() {
+    }
+
+    public Medico(int id, String nome, String crm, Especialidade especialidade) {
+        this.id = id;
+        this.nome = nome;
+        this.crm = crm;
+        this.especialidade = especialidade;
+    }
 
     // Getters e Setters
     public int getId() {
@@ -46,5 +55,10 @@ public class Medico {
 
     public void setEspecialidade(Especialidade especialidade) {
         this.especialidade = especialidade;
+    }
+
+    @Override
+    public String toString() {
+        return nome + " - " + crm;
     }
 }

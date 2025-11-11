@@ -8,12 +8,22 @@ package br.edu.imepac.clinica_medica.model;
  *
  * @author Mateus
  */
-class Especialidade {
-
+public class Especialidade {
     private int id;
-    private String nome;
     private String descricao;
+    
+    public Especialidade() {}
 
+    public Especialidade( String descricao) {
+        this.descricao = descricao;
+    }
+
+    public Especialidade(int id, String descricao) {
+        this.id = id;
+        this.descricao = descricao;
+    }
+
+    // Getters e Setters
     public int getId() {
         return id;
     }
@@ -21,20 +31,12 @@ class Especialidade {
     public void setId(int id) {
         this.id = id;
     }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
     public String getDescricao() {
-        return descricao;
-    }
-
+        return descricao;}
     public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
+        this.descricao = descricao;}
+    
+    public String toString() {
+    return descricao;
+}
 }

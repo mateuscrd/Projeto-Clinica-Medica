@@ -9,138 +9,45 @@ package br.edu.imepac.clinica_medica.model;
  * @author Mateus
  */
 public class Usuario {
-
     private int id;
+    private int funcionarioId;  // referencia ao funcionário cadastrado
     private String login;
     private String senha;
-    private Funcionario funcionario; //chave estrangeira
+    private String perfil;  // ex: "ATENDENTE", "MEDICO", "ADMIN"
+    private String permissao;
 
-    // Permissões
-    private boolean permissaoCadFuncionario;
-    private boolean permissaoCadUsuario;
-    private boolean permissaoCadEspecialidade;
-    private boolean permissaoCadMedico;
-    private boolean permissaoCadConvenio;
-    private boolean permissaoAgendamento;
-    private boolean permissaoCancelamento;
-    private boolean acessoModuloAdmin;
-    private boolean acessoModuloAgendamento;
-    private boolean acessoModuloAtendimento;
+    public Usuario() {}
 
-    // Construtor Padrão
-    public Usuario() {
-    }
-
-    // Getters e Setters
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
+    public Usuario(int id, int funcionarioId, String login, String senha, String perfil) {
         this.id = id;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
+        this.funcionarioId = funcionarioId;
         this.login = login;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
         this.senha = senha;
+        this.perfil = perfil;
     }
 
-    public Funcionario getFuncionario() {
-        return funcionario;
+    // Getters e setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+
+    public int getFuncionarioId() { return funcionarioId; }
+    public void setFuncionarioId(int funcionarioId) { this.funcionarioId = funcionarioId; }
+
+    public String getLogin() { return login; }
+    public void setLogin(String login) { this.login = login; }
+
+    public String getSenha() { return senha; }
+    public void setSenha(String senha) { this.senha = senha; }
+
+    public String getPerfil() { return perfil; }
+    public void setPerfil(String perfil) { this.perfil = perfil; }
+    
+    public String getPermissao() {
+        return this.permissao;
     }
 
-    public void setFuncionario(Funcionario funcionario) {
-        this.funcionario = funcionario;
+    public void setPermissao(String permissao) {
+        this.permissao = permissao;
     }
-
-    public boolean isPermissaoCadFuncionario() {
-        return permissaoCadFuncionario;
-    }
-
-    public void setPermissaoCadFuncionario(boolean permissaoCadFuncionario) {
-        this.permissaoCadFuncionario = permissaoCadFuncionario;
-    }
-
-    public boolean isPermissaoCadUsuario() {
-        return permissaoCadUsuario;
-    }
-
-    public void setPermissaoCadUsuario(boolean permissaoCadUsuario) {
-        this.permissaoCadUsuario = permissaoCadUsuario;
-    }
-
-    public boolean isPermissaoCadEspecialidade() {
-        return permissaoCadEspecialidade;
-    }
-
-    public void setPermissaoCadEspecialidade(boolean permissaoCadEspecialidade) {
-        this.permissaoCadEspecialidade = permissaoCadEspecialidade;
-    }
-
-    public boolean isPermissaoCadMedico() {
-        return permissaoCadMedico;
-    }
-
-    public void setPermissaoCadMedico(boolean permissaoCadMedico) {
-        this.permissaoCadMedico = permissaoCadMedico;
-    }
-
-    public boolean isPermissaoCadConvenio() {
-        return permissaoCadConvenio;
-    }
-
-    public void setPermissaoCadConvenio(boolean permissaoCadConvenio) {
-        this.permissaoCadConvenio = permissaoCadConvenio;
-    }
-
-    public boolean isPermissaoAgendamento() {
-        return permissaoAgendamento;
-    }
-
-    public void setPermissaoAgendamento(boolean permissaoAgendamento) {
-        this.permissaoAgendamento = permissaoAgendamento;
-    }
-
-    public boolean isPermissaoCancelamento() {
-        return permissaoCancelamento;
-    }
-
-    public void setPermissaoCancelamento(boolean permissaoCancelamento) {
-        this.permissaoCancelamento = permissaoCancelamento;
-    }
-
-    public boolean isAcessoModuloAdmin() {
-        return acessoModuloAdmin;
-    }
-
-    public void setAcessoModuloAdmin(boolean acessoModuloAdmin) {
-        this.acessoModuloAdmin = acessoModuloAdmin;
-    }
-
-    public boolean isAcessoModuloAgendamento() {
-        return acessoModuloAgendamento;
-    }
-
-    public void setAcessoModuloAgendamento(boolean acessoModuloAgendamento) {
-        this.acessoModuloAgendamento = acessoModuloAgendamento;
-    }
-
-    public boolean isAcessoModuloAtendimento() {
-        return acessoModuloAtendimento;
-    }
-
-    public void setAcessoModuloAtendimento(boolean acessoModuloAtendimento) {
-        this.acessoModuloAtendimento = acessoModuloAtendimento;
-    }
+    
 }

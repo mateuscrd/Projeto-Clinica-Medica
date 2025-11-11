@@ -8,15 +8,20 @@ package br.edu.imepac.clinica_medica.model;
  *
  * @author Mateus
  */
-class Convenio {
-
+public class Convenio {
     private int id;
     private String nomeEmpresa;
     private String cnpj;
     private String telefone;
 
-    // Construtor Padrão
     public Convenio() {
+    }
+
+    public Convenio(int id, String nomeEmpresa, String cnpj, String telefone) {
+        this.id = id;
+        this.nomeEmpresa = nomeEmpresa;
+        this.cnpj = cnpj;
+        this.telefone = telefone;
     }
 
     // Getters e Setters
@@ -54,6 +59,7 @@ class Convenio {
 
     @Override
     public String toString() {
-        return getNomeEmpresa(); // Facilita a exibição em JComboBox
+        return nomeEmpresa;
     }
+    
 }

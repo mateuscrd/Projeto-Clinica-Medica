@@ -8,63 +8,64 @@ package br.edu.imepac.clinica_medica.model;
  *
  * @author Mateus
  */
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 public class Prontuario {
-
     private int id;
-    private Paciente paciente; // Objeto para representar a chave estrangeira (FK) para o paciente
-    private String historico;
-    private String receituario;
-    private String exames;
-    private LocalDateTime dataRegistro;
+    private int consultaId;
+    private String queixaPrincipal;
+    private String historicoDoenca;
+    private String exameFisico;
+    private String diagnostico;
+    private String conduta;
+    private Timestamp dataRegistro;
+private String nomePaciente;
 
-    // --- Getters e Setters ---
-    public int getId() {
-        return id;
-    }
+    public Prontuario() {}
 
-    public void setId(int id) {
+    public Prontuario(int id, int consultaId, String queixaPrincipal, String historicoDoenca,
+                      String exameFisico, String diagnostico, String conduta, Timestamp dataRegistro) {
         this.id = id;
-    }
-
-    public Paciente getPaciente() {
-        return paciente;
-    }
-
-    public void setPaciente(Paciente paciente) {
-        this.paciente = paciente;
-    }
-
-    public String getHistorico() {
-        return historico;
-    }
-
-    public void setHistorico(String historico) {
-        this.historico = historico;
-    }
-
-    public String getReceituario() {
-        return receituario;
-    }
-
-    public void setReceituario(String receituario) {
-        this.receituario = receituario;
-    }
-
-    public String getExames() {
-        return exames;
-    }
-
-    public void setExames(String exames) {
-        this.exames = exames;
-    }
-
-    public LocalDateTime getDataRegistro() {
-        return dataRegistro;
-    }
-
-    public void setDataRegistro(LocalDateTime dataRegistro) {
+        this.consultaId = consultaId;
+        this.queixaPrincipal = queixaPrincipal;
+        this.historicoDoenca = historicoDoenca;
+        this.exameFisico = exameFisico;
+        this.diagnostico = diagnostico;
+        this.conduta = conduta;
         this.dataRegistro = dataRegistro;
     }
+
+    // Getters e setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+
+    public int getConsultaId() { return consultaId; }
+    public void setConsultaId(int consultaId) { this.consultaId = consultaId; }
+
+    public String getQueixaPrincipal() { return queixaPrincipal; }
+    public void setQueixaPrincipal(String queixaPrincipal) { this.queixaPrincipal = queixaPrincipal; }
+
+    public String getHistoricoDoenca() { return historicoDoenca; }
+    public void setHistoricoDoenca(String historicoDoenca) { this.historicoDoenca = historicoDoenca; }
+
+    public String getExameFisico() { return exameFisico; }
+    public void setExameFisico(String exameFisico) { this.exameFisico = exameFisico; }
+
+    public String getDiagnostico() { return diagnostico; }
+    public void setDiagnostico(String diagnostico) { this.diagnostico = diagnostico; }
+
+    public String getConduta() { return conduta; }
+    public void setConduta(String conduta) { this.conduta = conduta; }
+
+    public Timestamp getDataRegistro() { return dataRegistro; }
+    public void setDataRegistro(Timestamp dataRegistro) { this.dataRegistro = dataRegistro; }
+
+    public String getNomePaciente() {
+    return nomePaciente;
 }
+
+public void setNomePaciente(String nomePaciente) {
+    this.nomePaciente = nomePaciente;
+}
+}
+

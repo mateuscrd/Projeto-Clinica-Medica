@@ -10,4 +10,16 @@
         <maven.compiler.release>21</maven.compiler.release>
         <exec.mainClass>br.edu.imepac.clinica_medica.view.login.TelaLogin</exec.mainClass>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>8.0.33</version> <!-- Versão estável recente -->
+        </dependency>
+        <dependency>
+            <groupId>org.netbeans.external</groupId>
+            <artifactId>AbsoluteLayout</artifactId>
+            <version>RELEASE230</version>
+        </dependency>
+    </dependencies>
 </project>
