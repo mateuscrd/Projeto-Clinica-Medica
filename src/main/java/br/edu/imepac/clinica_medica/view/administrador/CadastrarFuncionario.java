@@ -4,18 +4,34 @@
  */
 package br.edu.imepac.clinica_medica.view.administrador;
 
+import br.edu.imepac.clinica_medica.dao.FuncionarioDao;
+import br.edu.imepac.clinica_medica.model.Funcionario;
+
 /**
  *
  * @author Mateus
  */
 public class CadastrarFuncionario extends javax.swing.JFrame {
 
-    /**
-     * Creates new form CadastrarFuncionario
-     */
     public CadastrarFuncionario() {
         initComponents();
     }
+    
+    private void limparCampos() {
+    txtNome.setText("");
+    txtCPF.setText("");
+    txtRG.setText("");
+    txtRua.setText("");
+    txtNumero.setText("");
+    txtComplemento.setText("");
+    txtBairro.setText("");
+    txtCidade.setText("");
+    txtEstado.setText("");
+    txtCEP.setText("");
+    txtTelefone.setText("");
+    txtCTPS.setText("");
+    txtPIS.setText("");
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -97,10 +113,25 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
         jLabel13.setText("Numero do PIS");
 
         Salvar.setText("Salvar");
+        Salvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SalvarActionPerformed(evt);
+            }
+        });
 
         Limpar.setText("Limpar");
+        Limpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LimparActionPerformed(evt);
+            }
+        });
 
         Sair.setText("Sair");
+        Sair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SairActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -225,6 +256,51 @@ public class CadastrarFuncionario extends javax.swing.JFrame {
     private void txtRGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRGActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtRGActionPerformed
+
+    private void SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarActionPerformed
+try {
+        // Cria objeto Funcionario
+        Funcionario f = new Funcionario();
+
+        // Preenche com dados dos campos
+        f.setNomeCompleto(txtNome.getText().trim());
+        f.setCpf(txtCPF.getText().trim());
+        f.setRg(txtRG.getText().trim());
+        f.setRua(txtRua.getText().trim());
+        f.setNumero(txtNumero.getText().trim());
+        f.setComplemento(txtComplemento.getText().trim());
+        f.setBairro(txtBairro.getText().trim());
+        f.setCidade(txtCidade.getText().trim());
+        f.setEstado(txtEstado.getText().trim());
+        f.setCep(txtCEP.getText().trim());
+        f.setTelefoneFixo(txtTelefone.getText().trim());
+        f.setCtps(txtCTPS.getText().trim());
+        f.setPis(txtPIS.getText().trim());
+
+        // Chama o DAO para salvar
+        FuncionarioDao dao = new FuncionarioDao();
+        boolean sucesso = dao.inserir(f); // ou dao.inserir(f);
+
+        if (sucesso) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Funcionário salvo com sucesso!");
+            limparCampos();
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "Erro ao salvar funcionário.");
+        }
+    } catch (Exception e) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage());
+        e.printStackTrace();
+    }        // TODO add your handling code here:
+    }//GEN-LAST:event_SalvarActionPerformed
+
+    private void LimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LimparActionPerformed
+    limparCampos();        // TODO add your handling code here:
+    }//GEN-LAST:event_LimparActionPerformed
+
+    private void SairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SairActionPerformed
+    this.dispose();
+    // TODO add your handling code here:
+    }//GEN-LAST:event_SairActionPerformed
 
     /**
      * @param args the command line arguments

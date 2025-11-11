@@ -4,17 +4,118 @@
  */
 package br.edu.imepac.clinica_medica.view.administrador;
 
+import br.edu.imepac.clinica_medica.dao.UsuarioDao;
+import br.edu.imepac.clinica_medica.model.Funcionario;
+import br.edu.imepac.clinica_medica.model.Usuario;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author Mateus
  */
 public class CadastrarUsuario extends javax.swing.JFrame {
+    
+    private Funcionario funcionarioSelecionado;
+    private int funcionarioId = -1;
+    
 
-    /**
-     * Creates new form CadastrarUsuario
-     */
     public CadastrarUsuario() {
-        initComponents();
+        initComponents(); // chama o GUI Builder para construir a interface
+
+        // Configurações adicionais (opcional)
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        // AÇÕES DOS BOTÕES
+        Buscar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ListarFuncionario telaBuscar = new ListarFuncionario(CadastrarUsuario.this); // modo de seleção
+                telaBuscar.setVisible(true);
+
+                Funcionario selecionado = telaBuscar.getFuncionarioSelecionado();
+                if (selecionado != null) {
+                    funcionarioSelecionado = selecionado;
+                    funcionarioId = selecionado.getId();
+                    txtFuncionario.setText(selecionado.getNomeCompleto());
+                }
+            }
+        });
+        
+        Salvar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                salvarUsuario();
+            }
+        });
+
+        Limpar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                limparCampos();
+            }
+        });
+
+        Cancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
+    }
+
+    // Define funcionário vindo da tela BuscarTodos (caso queira usar externamente)
+    public void definirFuncionarioSelecionado(Funcionario funcionario) {
+        this.funcionarioSelecionado = funcionario;
+        this.funcionarioId = funcionario.getId();
+        txtFuncionario.setText(funcionario.getNomeCompleto());
+    }
+
+    private void salvarUsuario() {
+        String login = txtUsuario.getText().trim();
+        String senha = new String(txtSenha.getPassword()).trim();
+        String confirmar = new String(txtConfirmarSenha.getPassword()).trim();
+        String permissao = Funcao.getSelectedItem().toString();
+
+        if (funcionarioId == -1 || login.isEmpty() || senha.isEmpty() || confirmar.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Preencha todos os campos corretamente.");
+            return;
+        }
+
+        if (!senha.equals(confirmar)) {
+            JOptionPane.showMessageDialog(this, "As senhas não coincidem.");
+            return;
+        }
+
+        Usuario usuario = new Usuario();
+        usuario.setLogin(login);
+        usuario.setSenha(senha);
+        usuario.setPermissao(permissao);
+        usuario.setFuncionarioId(funcionarioId);
+
+        UsuarioDao dao = new UsuarioDao();
+        dao.inserir(usuario);
+
+        JOptionPane.showMessageDialog(this, "Usuário cadastrado com sucesso!");
+        limparCampos();
+    }
+
+    private void limparCampos() {
+        txtFuncionario.setText("");
+        txtUsuario.setText("");
+        txtSenha.setText("");
+        txtConfirmarSenha.setText("");
+        Funcao.setSelectedIndex(0);
+        funcionarioId = -1;
+        funcionarioSelecionado = null;
+    }
+    
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new CadastrarUsuario().setVisible(true));
     }
 
     /**
@@ -62,6 +163,11 @@ public class CadastrarUsuario extends javax.swing.JFrame {
         Limpar.setText("Limpar");
 
         Cancelar.setText("Cancelar");
+        Cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -131,41 +237,13 @@ public class CadastrarUsuario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastrarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastrarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastrarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastrarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarActionPerformed
+      dispose();
+      // TODO add your handling code here:
+    }//GEN-LAST:event_CancelarActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CadastrarUsuario().setVisible(true);
-            }
-        });
-    }
-
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Buscar;
     private javax.swing.JButton Cancelar;

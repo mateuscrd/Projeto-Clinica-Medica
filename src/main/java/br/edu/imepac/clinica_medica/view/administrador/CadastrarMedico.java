@@ -4,18 +4,75 @@
  */
 package br.edu.imepac.clinica_medica.view.administrador;
 
+import br.edu.imepac.clinica_medica.dao.EspecialidadeDao;
+import br.edu.imepac.clinica_medica.dao.MedicoDao;
+import br.edu.imepac.clinica_medica.model.Especialidade;
+import br.edu.imepac.clinica_medica.model.Medico;
+import java.util.List;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Mateus
  */
 public class CadastrarMedico extends javax.swing.JFrame {
+    private Medico medico;
+    private List<Especialidade> listaEspecialidades;
+
+  private Medico medicoEdicao; // null para novo, preenchido para edição
 
     /**
      * Creates new form CadastrarMedico
      */
     public CadastrarMedico() {
-        initComponents();
+    initComponents();
+    carregarEspecialidades();
+    this.medicoEdicao = null;
+     
+}
+    // Construtor para edição
+public CadastrarMedico(Medico medico) {
+    initComponents();
+    carregarEspecialidades();
+    this.medicoEdicao = medico;
+
+    // Preencher os campos com os dados do médico a editar
+    txtNome.setText(medico.getNome());
+    txtCRM.setText(medico.getCrm());
+    jComboBox1.setSelectedItem(medico.getEspecialidade().getDescricao());
+}
+
+
+private void preencherCampos() {
+    if (medico != null && medico.getId() != 0) {
+        txtNome.setText(medico.getNome());
+        txtCRM.setText(medico.getCrm());
+        jComboBox1.setSelectedItem(medico.getEspecialidade());
     }
+}
+ private void carregarEspecialidades() {
+    try {
+        EspecialidadeDao dao = new EspecialidadeDao();
+        listaEspecialidades = dao.buscarTodos();
+
+       jComboBox1.removeAllItems();
+
+for (Especialidade esp : listaEspecialidades) {
+    jComboBox1.addItem(esp.getDescricao());
+}
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Erro ao carregar especialidades: " + e.getMessage());
+    }
+}
+
+ 
+
+ private void limparCampos() {
+    txtNome.setText("");
+    txtCRM.setText("");
+    jComboBox1.setSelectedIndex(-1); // ou 0, dependendo de como carregar
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -47,10 +104,25 @@ public class CadastrarMedico extends javax.swing.JFrame {
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         Salvar.setText("Salvar");
+        Salvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SalvarActionPerformed(evt);
+            }
+        });
 
         Sair.setText("Sair");
+        Sair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SairActionPerformed(evt);
+            }
+        });
 
         Limpar.setText("Limpar");
+        Limpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LimparActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -103,6 +175,47 @@ public class CadastrarMedico extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarActionPerformed
+        String nome = txtNome.getText();
+        String crm = txtCRM.getText();
+        int indice = jComboBox1.getSelectedIndex();
+
+        if (nome.isEmpty() || crm.isEmpty() || indice < 0) {
+            JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        Especialidade especialidadeSelecionada = listaEspecialidades.get(indice);
+
+        MedicoDao dao = new MedicoDao();
+
+        if (medicoEdicao == null) {
+            Medico novo = new Medico();
+            novo.setNome(nome);
+            novo.setCrm(crm);
+            novo.setEspecialidade(especialidadeSelecionada);
+            dao.inserir(novo);
+            JOptionPane.showMessageDialog(this, "Médico cadastrado com sucesso!");
+        } else {
+            medicoEdicao.setNome(nome);
+            medicoEdicao.setCrm(crm);
+            medicoEdicao.setEspecialidade(especialidadeSelecionada);
+            dao.atualizar(medicoEdicao);
+            JOptionPane.showMessageDialog(this, "Médico atualizado com sucesso!");
+        }
+
+        dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_SalvarActionPerformed
+
+    private void LimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LimparActionPerformed
+    limparCampos();        // TODO add your handling code here:
+    }//GEN-LAST:event_LimparActionPerformed
+
+    private void SairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SairActionPerformed
+    this.dispose();
+    // TODO add your handling code here:
+    }//GEN-LAST:event_SairActionPerformed
 
     /**
      * @param args the command line arguments
