@@ -28,7 +28,7 @@ import java.util.List;
 public class ConsultaDao {
 
     public void inserir(Consulta consulta) {
-    String sql = "INSERT INTO consultas (paciente_id, medico_id, convenio_id, data_consulta, horario, tipo, observacoes) " +
+    String sql = "INSERT INTO consultas (id_paciente, id_medico, id_convenio, data_consulta, horario, tipo, observacoes) " +
                  "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     try (Connection conn = ConexaoUtil.obterConexao();
@@ -58,13 +58,13 @@ public class ConsultaDao {
         System.out.println("Linhas inseridas: " + linhas);
 
     } catch (SQLException e) {
-        e.printStackTrace();
+        throw new RuntimeException("Erro de SQL: " + e.getMessage(), e);
     }
 }
 
 
     public void atualizar(Consulta consulta) {
-        String sql = "UPDATE consultas SET paciente_id=?, medico_id=?, convenio_id=?, data_consulta=?, horario=?, tipo=?, observacoes=? WHERE id=?";
+        String sql = "UPDATE consultas SET id_paciente=?, id_medico=?, id_convenio=?, data_consulta=?, horario=?, tipo=?, observacoes=? WHERE id=?";
 
         try (Connection conn = ConexaoUtil.obterConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -87,7 +87,7 @@ public class ConsultaDao {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Erro de SQL: " + e.getMessage(), e);
         }
     }
     public List<Consulta> buscarConsultasProximas() {
@@ -103,7 +103,7 @@ public class ConsultaDao {
             lista.add(c);
         }
     } catch (SQLException e) {
-        e.printStackTrace();
+        throw new RuntimeException("Erro de SQL: " + e.getMessage(), e);
     }
     return lista;
 }
@@ -118,7 +118,7 @@ public class ConsultaDao {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Erro de SQL: " + e.getMessage(), e);
         }
     }
 
@@ -138,7 +138,7 @@ public class ConsultaDao {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Erro de SQL: " + e.getMessage(), e);
         }
 
         return consulta;
@@ -158,7 +158,7 @@ public class ConsultaDao {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Erro de SQL: " + e.getMessage(), e);
         }
 
         return lista;
@@ -170,9 +170,9 @@ public class ConsultaDao {
 
         consulta.setId(rs.getInt("id"));
 
-        int pacienteId = rs.getInt("paciente_id");
-        int medicoId = rs.getInt("medico_id");
-        int convenioId = rs.getInt("convenio_id");
+        int pacienteId = rs.getInt("id_paciente");
+        int medicoId = rs.getInt("id_medico");
+        int convenioId = rs.getInt("id_convenio");
 
         // Buscar os objetos relacionados usando os DAOs
         Paciente paciente = new PacienteDao().buscarPorId(pacienteId);
@@ -263,7 +263,7 @@ public class ConsultaDao {
         }
 
     } catch (SQLException e) {
-        e.printStackTrace();
+        throw new RuntimeException("Erro de SQL: " + e.getMessage(), e);
     }
 
     return lista;
@@ -322,7 +322,7 @@ public class ConsultaDao {
         }
 
     } catch (SQLException e) {
-        e.printStackTrace();
+        throw new RuntimeException("Erro de SQL: " + e.getMessage(), e);
     }
 
     return lista;

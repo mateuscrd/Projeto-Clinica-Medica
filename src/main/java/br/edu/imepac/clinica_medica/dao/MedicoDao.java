@@ -113,39 +113,35 @@ public class MedicoDao {
     }
     
     public List<Medico> buscarPorNome(String nome) {
-    List<Medico> lista = new ArrayList<>();
+        List<Medico> lista = new ArrayList<>();
+        
+        // SQL corrigido para ser igual ao buscarTodos, mas com o filtro de nome
+        String sql = "SELECT m.id, m.nome, m.crm, e.id AS esp_id, e.descricao " +
+                     "FROM medicos m JOIN especialidades e ON m.id_especialidade = e.id " +
+                     "WHERE m.nome LIKE ?"; // <-- Cláusula de busca
 
-    String sql = "SELECT m.id, m.nome, m.crm, e.id AS id_especialidade, e.nome AS especialidade_nome "
-               + "FROM medicos m "
-               + "JOIN especialidades e ON m.especialidade_id = e.id "
-               + "WHERE m.nome LIKE ?";
+        try (Connection conn = ConexaoUtil.obterConexao();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-    try (Connection conn = ConexaoUtil.obterConexao();
-         PreparedStatement stmt = conn.prepareStatement(sql)) {
+            // Define o parâmetro do PreparedStatement
+            stmt.setString(1, "%" + nome + "%");
 
-        stmt.setString(1, "%" + nome + "%");
+            try (ResultSet rs = stmt.executeQuery()) {
+                // Lógica de criação de objeto igual ao seu buscarTodos
+                while (rs.next()) {
+                    Especialidade esp = new Especialidade(rs.getInt("esp_id"), rs.getString("descricao"));
+                    Medico medico = new Medico(rs.getInt("id"), rs.getString("nome"), rs.getString("crm"), esp);
+                    lista.add(medico);
+                }
+            }
 
-        ResultSet rs = stmt.executeQuery();
-        while (rs.next()) {
-            Especialidade especialidade = new Especialidade();
-            especialidade.setId(rs.getInt("especialidade_id"));
-            especialidade.setDescricao(rs.getString("especialidade_nome"));
-
-            Medico medico = new Medico();
-            medico.setId(rs.getInt("id"));
-            medico.setNome(rs.getString("nome"));
-            medico.setCrm(rs.getString("crm"));
-            medico.setEspecialidade(especialidade);
-
-            lista.add(medico);
+        } catch (SQLException ex) {
+            // Tratamento de erro corrigido, igual ao resto da classe
+            throw new RuntimeException("Erro ao buscar médicos por nome: " + ex.getMessage(), ex);
         }
-        rs.close();
-    } catch (SQLException e) {
-        e.printStackTrace(); // ou use JOptionPane.showMessageDialog(null, ...)
-    }
 
-    return lista;
-}
+        return lista;
+    }
     public Medico buscarPorUsuarioId(int usuarioId) {
     String sql = "SELECT m.id, m.nome, m.crm, e.id AS esp_id, e.descricao " +
                  "FROM medicos m " +

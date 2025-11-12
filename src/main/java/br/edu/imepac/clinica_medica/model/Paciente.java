@@ -127,4 +127,8 @@ public String toString() {
     return this.getNomeCompleto();
 }
 
+    public String getNome() {
+       return this.nomeCompleto;
+    }
+
 }

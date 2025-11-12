@@ -59,6 +59,6 @@ public class Medico {
 
     @Override
     public String toString() {
-        return nome + " - " + crm;
+        return this.getNome();
     }
 }

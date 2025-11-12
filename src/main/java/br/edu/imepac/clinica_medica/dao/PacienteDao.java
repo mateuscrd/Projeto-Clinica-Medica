@@ -77,9 +77,9 @@ public class PacienteDao {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            // CORREÇÃO: Lançar o erro em vez de engolir
+            throw new RuntimeException("Erro ao buscar todos os pacientes: " + e.getMessage(), e);
         }
-
         return lista;
     }
 
