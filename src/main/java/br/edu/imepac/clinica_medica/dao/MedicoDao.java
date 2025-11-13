@@ -146,7 +146,7 @@ public class MedicoDao {
     String sql = "SELECT m.id, m.nome, m.crm, e.id AS esp_id, e.descricao " +
                  "FROM medicos m " +
                  "JOIN especialidades e ON m.id_especialidade = e.id " +
-                 "WHERE m.usuario_id = ?";
+                 "WHERE m.id_usuario = ?";
 
     try (Connection conn = ConexaoUtil.obterConexao();
          PreparedStatement stmt = conn.prepareStatement(sql)) {

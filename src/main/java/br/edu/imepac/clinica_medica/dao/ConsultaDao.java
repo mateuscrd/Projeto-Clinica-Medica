@@ -224,8 +224,8 @@ public class ConsultaDao {
     List<Consulta> lista = new ArrayList<>();
 
     String sql = "SELECT c.*, p.nome_completo FROM consultas c " +
-                 "JOIN pacientes p ON c.paciente_id = p.id " +
-                 "WHERE c.medico_id = ? AND c.data_consulta >= CURDATE()";
+             "JOIN pacientes p ON c.id_paciente = p.id " + // <-- Corrigi este também, por precaução
+             "WHERE c.id_medico = ? AND c.data_consulta >= CURDATE()"; // <--- CORRIGIDO
 
     try (Connection conn = ConexaoUtil.obterConexao();
          PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -271,14 +271,15 @@ public class ConsultaDao {
   public List<Consulta> buscarPorNomePaciente(String nome) {
     List<Consulta> lista = new ArrayList<>();
 
+    // CORREÇÃO APLICADA AQUI:
     String sql = "SELECT c.id, c.data_consulta, c.horario, c.tipo, " +
                  "p.nome_completo AS paciente_nome, " +
                  "m.nome AS medico_nome, " +
                  "cv.nome_empresa AS convenio_nome " +
                  "FROM consultas c " +
-                 "JOIN pacientes p ON c.paciente_id = p.id " +
-                 "JOIN medicos m ON c.medico_id = m.id " +
-                 "LEFT JOIN convenios cv ON c.convenio_id = cv.id " +
+                 "JOIN pacientes p ON c.id_paciente = p.id " +      // <-- CORRIGIDO
+                 "JOIN medicos m ON c.id_medico = m.id " +        // <-- CORRIGIDO
+                 "LEFT JOIN convenios cv ON c.id_convenio = cv.id " + // <-- CORRIGIDO
                  "WHERE p.nome_completo LIKE ? " +
                  "ORDER BY c.data_consulta DESC, c.horario DESC";
 
