@@ -153,7 +153,7 @@ public class ConvenioDao {
         }
 
     } catch (Exception e) {
-        e.printStackTrace();
+        throw new RuntimeException("Erro na busca: " + e.getMessage(), e);
     }
 
     return lista;
